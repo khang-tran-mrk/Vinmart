@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+
+import org.springframework.web.servlet.ModelAndView;
 
 import VinMart.dao.ProductDao;
 import VinMart.dao.phieunhapDao;
@@ -21,6 +24,7 @@ import VinMart.entities.Products;
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
 				maxFileSize=1024*1024*10,      // 10MB
 				maxRequestSize=1024*1024*50)   // 50MB
+
 public class SanPhamController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,16 +41,25 @@ public class SanPhamController extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = request.getSession();
 		String chucNang = request.getParameter("chucNang");
+		
 		if (chucNang.equals("Them")) {
 		try {
 			
 			int product_id = Integer.parseInt(request.getParameter("product_id"));
 			
 			String product_name = request.getParameter("product_name");
-			int product_soluongtonkho = Integer.parseInt(request.getParameter("product_soluongtonkho"));
-			int product_price = Integer.parseInt(request.getParameter("product_price"));
-			int product_discount = Integer.parseInt(request.getParameter("product_discount"));
-			int product_danhmuc = Integer.parseInt(request.getParameter("product_danhmuc"));		
+//			int product_soluongtonkho = Integer.parseInt(request.getParameter("product_soluongtonkho"));
+//			int product_price = Integer.parseInt(request.getParameter("product_price"));
+			
+			int product_soluongtonkho = 1;
+			int product_price = 1;
+//			
+//			int product_discount = Integer.parseInt(request.getParameter("product_discount"));
+			int product_danhmuc = Integer.parseInt(request.getParameter("product_danhmuc"));
+			
+			int product_discount = 1;
+			
+			
 			//upload anh
 			String product_image = getFileName(request); 
 			int product_view = Integer.parseInt("0");

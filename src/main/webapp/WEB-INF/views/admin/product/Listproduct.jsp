@@ -55,6 +55,7 @@ if ((user.getRole_id() == 5) || (user.getRole_id() == 1) || (user.getRole_id() =
 					<div class="col-md-12">
 						<div class="bgc-white bd bdrs-3 p-20 mB-20">
 							<div style="display: flex;">
+								${pageContext.request.contextPath}
 								<div style="padding-left: 85px;">
 									Chọn nhập thêm số lượng sản phẩm đã tồn tại:
 									<a data-toggle="modal" data-target="#product-old"
@@ -181,8 +182,8 @@ if ((user.getRole_id() == 5) || (user.getRole_id() == 1) || (user.getRole_id() =
 													href="#myModaldel" data-toggle="modal">
 													<img
 														src="${pageContext.request.contextPath}/assets/images/xoa.png"
-														height="40" style="max-width: 40px"
-														onclick="del(${i.count })">
+														height="40" style="max-width: 40px">
+													<%-- onclick="del(${i.count })" --%>
 												</a>
 												<!-- Dữ liệu để edit -->
 												<input type="hidden" id="product_id"
@@ -768,10 +769,10 @@ if ((user.getRole_id() == 5) || (user.getRole_id() == 1) || (user.getRole_id() =
 												style="padding-left: -73px; left: -185px; top: 59px;">
 												<input id="fileInput_modal" type="file" name="product_image"
 													style="display: none;" onclick="upload()">
-												<input id="product_image_name_modal" name="product_image_name" type="hidden">
+												<input id="product_image_name_modal"
+													name="product_image_name" type="hidden">
 												<input style="width: 350px;" id="product_image_modal"
-													type="button" 
-													class="btn btn-primary btn-block mx-auto"
+													type="button" class="btn btn-primary btn-block mx-auto"
 													value="UPLOAD PRODUCT IMAGE"
 													onclick="document.getElementById('fileInput_modal').click();">
 											</div>
@@ -809,14 +810,15 @@ if ((user.getRole_id() == 5) || (user.getRole_id() == 1) || (user.getRole_id() =
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<!-- Modal body -->
-				<div class="modal-body">Do you want to delete ?</div>
+				<div class="modal-body" id="title_product_del"></div>
 				<!-- Modal footer -->
 				<div class="modal-footer">
-					<form class="tm-edit-product-form" method="post">
+					<form action="#" class="tm-edit-product-form">
 						<button style="width: 100%; background-color: red;" type="submit"
-							class="btn btn-primary btn-block text-uppercase deleteCate" id="btnDel">OK
-							?</button>
-						<input type="hidden" name="product_id" id="product_id" />
+							class="btn btn-primary btn-block text-uppercase deleteCate"
+							data-dismiss="modal"
+							id="btnDel">OK ?</button>
+						<input type="hidden" name="product_id" id="product_id_del" />
 					</form>
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
@@ -829,30 +831,50 @@ if ((user.getRole_id() == 5) || (user.getRole_id() == 1) || (user.getRole_id() =
 	<%@include file="/WEB-INF/views/layouts/admin/footer/footer.jsp"%>
 	<%@include file="/WEB-INF/views/layouts/admin/decorators/footer.jsp"%>
 	<!-- END FOOTER -->
-	<script type="text/javascript">
-		function del(row_id){
-			//10, 15, 20, 25, 30,...số lượng hàng trong bảng
-			let soluong_hang = document.getElementsByName('dataTable_length')[0].value;
-			
 	
-			row_id = (row_id % soluong_hang > 0)?(row_id % soluong_hang):soluong_hang;
+	<!-- THÔNG BÁO THÊM/SỬA/XOÁ -->
+	<c:if test="${delete}">
+		<script>
+			console.log('delete thanh cong')
+		</script>
+	</c:if>
+	<!-- DELETE SCRIPT -->
+	<script type="text/javascript">
+		$('#dataTable').on('click', '.tipS.delete', function(){	
+			let product_id = $(this).parent().find("input[id='product_id']").val();
+			let product_name = $(this).parent().find("input[id='product_name']").val();			
 			
-			let data = $('#dataTable')[0].rows[row_id];
+			console.log(product_id)
+			/* TRUYỀN THÔNG TIN SẢN PHẨM VÀO MODAL DEL */
+			//TITLE MODAL DEL
+			let modal_title_del = $('#title_product_del');
+			modal_title_del[0].innerText = "Bạn có chắc chắn muốn xoá [" + product_name + "] ?";
 			
-			/* truyền vào modal */
+			//VALUE MODAL DEL
+			let modal_value_del = $('#product_id_del');
+			modal_value_del.val(product_id)
 			
-			let product_id = data.querySelectorAll('#product_id')[0].value;
-			
-			$.ajax( {
+			//NẾU CLICK OK THÌ MỚI XOÁ
+			$('#btnDel').on('click', function(){
+				del(product_id)
+			})
+		})
+		
+		
+		
+		function del(product_id){
+			console.log("chuẩn bị delete " + product_id)
+			$.ajax({
 		        url: "${pageContext.request.contextPath}/del-product/"+ product_id,
-		        type: "GET",
+		        type: "POST",
 		        success: function(data) {
-		          $('#myModaldel #product_id').val(id);
+		          /* $('#myModaldel #product_id').val(id); */
+		          if(data) console.log('real true')
+		          
 		        }
-		      });
+	      	});
 		}
 	</script>
-
 	<!-- EDIT DINH CAO -->
 	<script>
 		function upload(){

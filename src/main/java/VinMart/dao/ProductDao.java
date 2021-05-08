@@ -239,9 +239,11 @@ public class ProductDao  extends BaseDao{
 		  
 		  }
 		//xoa product
-		  public void delete(int product_id) {
+		  public boolean delete(int product_id) {
 		    String sql = "DELETE FROM product WHERE product_id = " + product_id;
-		    _jdbcTemplate.update(sql);
+		    if ( _jdbcTemplate.update(sql) > 0 ) return true;
+		    
+		    return false;
 		  }
 		  
 		
