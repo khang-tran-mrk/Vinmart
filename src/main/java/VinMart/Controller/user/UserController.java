@@ -138,12 +138,12 @@ public class UserController extends BaseController {
 					u.setUsers_email(users_email);
 					u.setUsers_password(users_password);	
 					accountService.checkPassword(u);
-					
+					session.setAttribute("xacthuc", "true");
 					session.removeAttribute("authcode");
 					response.sendRedirect("login");
 				}
 				else {
-					
+					session.setAttribute("xacthucFail", "true");
 					response.sendRedirect("do-forgot-password/"+authcode+"/"+users_email );
 				}
 			

@@ -112,5 +112,12 @@
 	 </script>
 	 <%session.removeAttribute("loginFail");    %> 
 	</c:if>
+	
+	<c:if test="${ not empty xacthuc }">
+	<script type="text/javascript">
+	xacthuc();	    
+	 </script>
+	 <%session.removeAttribute("xacthuc");    %> 
+	</c:if>
 </body>
 </html>

@@ -125,6 +125,7 @@
 		
  }
  else {
+	 session.setAttribute("role","true");  
 	 response.sendRedirect("admin-page");
  }
  %>
@@ -134,14 +135,14 @@
 		
 		
 		<!-- ### $App Screen Content ### -->
-        <main class='main-content bgc-grey-100' style="background-color: #000000!important">
+        <main class='main-content bgc-grey-100' style="background-color: #131c29!important">
           <div id='mainContent'>
             <div class="container-fluid">
               <h4 class="c-grey-900 mT-10 mB-30" style="color: white !important;">Data Tables</h4>
               <div class="row">
                 <div class="col-md-12">
                 <a title="Chỉnh sửa sản phẩm" class="tipS"  href=""  data-toggle="modal" data-target="#myModal">
-	                        <img src="${pageContext.request.contextPath}/assets/images/add.png" height="50" style="max-width: 50px">
+	                       <i style="font-size: 30px;color:#6f42c1;"  class="fas fa-user-plus"></i>
 	                        </a>
                   <div class="bgc-white bd bdrs-3 p-20 mB-20">
                     
@@ -175,12 +176,12 @@
                             <th>
                             		<!-- EDIT THEO ID -->
                             <a title="Chỉnh sửa category" class="tipS edit"  href="#myModalEdit" data-toggle="modal">
-	                        <img src="${pageContext.request.contextPath}/assets/images/chinhsua.jpg" height="50" style="max-width: 50px">
+	                       	 <i style="font-size: 30px;color:#6f42c1;"  class="fas fa-edit"></i>
 	                        </a>
 	
 	                                 <!-- DEL THEO ID -->
 	                       <a title="Xóa  category" class="tipS delete " href="#myModaldel" data-toggle="modal"  >
-	                       <img src="${pageContext.request.contextPath}/assets/images/xoa.png" height="40" style="max-width: 40px"  >
+	                      	<i style="font-size: 30px;color: black;" class="fas fa-lock"></i>
 	                       </a>  
 	                       	<input type="hidden" id="category_id" value="${item.category_id}" >                         
                        		<input type="hidden" id="p_id" value="${item.p_id}" >  
@@ -212,7 +213,7 @@
         <div class="modal-body">
          <div class="row tm-edit-product-row" style="justify-content: center;">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form action="category-add" class="tm-edit-product-form" method="post">
+                <form action="rating-product"  method="post">
                   <div class="form-group mb-3">
                     <label for="name">Category Name
                     </label>

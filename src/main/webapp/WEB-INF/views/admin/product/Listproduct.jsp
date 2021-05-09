@@ -1,4 +1,3 @@
-
 <%
 	Users check = (Users) session.getAttribute("LoginInfo");
 if (check == null) {
@@ -14,7 +13,6 @@ if (check == null) {
 	Users user = (Users) session.getAttribute("LoginInfo");
 if ((user.getRole_id() == 5) || (user.getRole_id() == 1) || (user.getRole_id() == 2)) {
 	System.out.print("user: " + user.getRole_id());
-
 } else {
 	response.sendRedirect("admin-page");
 }
@@ -35,10 +33,14 @@ if ((user.getRole_id() == 5) || (user.getRole_id() == 1) || (user.getRole_id() =
 <!-- Head -->
 <%@include file="/WEB-INF/views/layouts/admin/decorators/head.jsp"%>
 <!-- End Head -->
+<style type="text/css">
+     	<%@ include file="/WEB-INF/views/layouts/customer/css/toast.css" %>
+</style>
 <script src='https://kit.fontawesome.com/a076d05399.js'
 	crossorigin='anonymous'></script>
 </head>
 <body class="app">
+	<div id="toast"></div>
 	<!-- Header -->
 	<%@include file="/WEB-INF/views/layouts/admin/header/header.jsp"%>
 	<!-- END Header -->
@@ -46,7 +48,7 @@ if ((user.getRole_id() == 5) || (user.getRole_id() == 1) || (user.getRole_id() =
 		ConnectionToDB con = new ConnectionToDB();
 	%>
 	<!-- ### $App Screen Content ### -->
-	<main class='main-content bgc-grey-100'
+	<main class='main-content bgc-grey-100 abcx'
 		style="background-color: #000000 !important">
 		<div id='mainContent'>
 			<div class="container-fluid">
@@ -55,27 +57,23 @@ if ((user.getRole_id() == 5) || (user.getRole_id() == 1) || (user.getRole_id() =
 					<div class="col-md-12">
 						<div class="bgc-white bd bdrs-3 p-20 mB-20">
 							<div style="display: flex;">
-								${pageContext.request.contextPath}
+								
 								<div style="padding-left: 85px;">
 									Chọn nhập thêm số lượng sản phẩm đã tồn tại:
 									<a data-toggle="modal" data-target="#product-old"
 										title="ADD PRODUCT" class="tipS" href="">
-										<img
-											src="${pageContext.request.contextPath}/assets/images/add.png"
-											height="40" style="max-width: 50px">
+										<i style="font-size: 30px;color:#6f42c1;"  class="fas fa-user-plus"></i>
 									</a>
 								</div>
 								<div style="padding-left: 85px;">
 									Hoặc thêm sản phẩm mới:
 									<a data-toggle="modal" data-target="#product-new"
 										title="ADD PRODUCT" class="tipS" href="">
-										<img
-											src="${pageContext.request.contextPath}/assets/images/add.png"
-											height="40" style="max-width: 50px">
+										<i style="font-size: 30px;color:#6f42c1;"  class="fas fa-user-plus"></i>
 									</a>
 								</div>
 								<a data-toggle="modal" data-target="#addncc"
-									style="width: 200px; float: right; BACKGROUND-COLOR: green; margin-left: 146px"
+									style="width: 200px; float: right; BACKGROUND-COLOR:#6f42c1;; margin-left: 146px"
 									title="Thêm Nhà cung cấp"
 									class="btn btn-primary btn-block text-uppercase" href="">Thêm
 									Nhà cung cấp</a>
@@ -172,18 +170,20 @@ if ((user.getRole_id() == 5) || (user.getRole_id() == 1) || (user.getRole_id() =
 												<!-- EDIT THEO ID -->
 												<a title="Chỉnh sửa sản phẩm" class="tipS edit"
 													href="#product_update" data-toggle="modal">
-													<img
-														src="${pageContext.request.contextPath}/assets/images/chinhsua.jpg"
-														height="50" style="max-width: 50px"
-														onclick="edit(${i.count })">
+													<i style="font-size: 30px;color:#6f42c1;" onclick="edit(${i.count })" class="fas fa-edit"></i>
+													
 												</a>
-												<!-- XOA THEO ID -->
+												<!-- KHOA THEO ID -->
+												
+												<a title="Khoa sản phẩm" class="tipS delete"
+													href="#myModaldel" data-toggle="modal">
+													<i style="font-size: 30px;color: black;" class="fas fa-lock"></i>
+												</a>
+												<!--  Xoa theo id -->
 												<a title="Xóa sản phẩm" class="tipS delete"
 													href="#myModaldel" data-toggle="modal">
-													<img
-														src="${pageContext.request.contextPath}/assets/images/xoa.png"
-														height="40" style="max-width: 40px">
-													<%-- onclick="del(${i.count })" --%>
+													<i style="font-size: 30px;color: black;" class="fas fa-trash"></i>
+													
 												</a>
 												<!-- Dữ liệu để edit -->
 												<input type="hidden" id="product_id"
@@ -813,12 +813,12 @@ if ((user.getRole_id() == 5) || (user.getRole_id() == 1) || (user.getRole_id() =
 				<div class="modal-body" id="title_product_del"></div>
 				<!-- Modal footer -->
 				<div class="modal-footer">
-					<form action="#" class="tm-edit-product-form">
+					
+					<form action="del-product/" method="post" id="url_product_del" class="tm-edit-product-form">
 						<button style="width: 100%; background-color: red;" type="submit"
 							class="btn btn-primary btn-block text-uppercase deleteCate"
-							data-dismiss="modal"
 							id="btnDel">OK ?</button>
-						<input type="hidden" name="product_id" id="product_id_del" />
+						<!-- <input type="hidden" name="product_id" id="product_id_del" /> -->
 					</form>
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
@@ -833,11 +833,17 @@ if ((user.getRole_id() == 5) || (user.getRole_id() == 1) || (user.getRole_id() =
 	<!-- END FOOTER -->
 	
 	<!-- THÔNG BÁO THÊM/SỬA/XOÁ -->
-	<c:if test="${delete}">
-		<script>
-			console.log('delete thanh cong')
-		</script>
+	
+	<%@include file="/WEB-INF/views/layouts/customer/footer/toast.jsp" %>
+	<c:if test="${ not empty deleteSP }">
+		<script>xoaSPthanhcong();</script>
+		console.log(1);
+		<%session.removeAttribute("deleteSP");%>
 	</c:if>
+	
+	
+	
+	
 	<!-- DELETE SCRIPT -->
 	<script type="text/javascript">
 		$('#dataTable').on('click', '.tipS.delete', function(){	
@@ -851,29 +857,14 @@ if ((user.getRole_id() == 5) || (user.getRole_id() == 1) || (user.getRole_id() =
 			modal_title_del[0].innerText = "Bạn có chắc chắn muốn xoá [" + product_name + "] ?";
 			
 			//VALUE MODAL DEL
-			let modal_value_del = $('#product_id_del');
-			modal_value_del.val(product_id)
+			//let modal_value_del = $('#product_id_del');
+			//modal_value_del.val(product_id)
+
+			//URL MODAL DEL
+			let url_product_del = $('#url_product_del');
+			url_product_del[0].action += product_id
 			
-			//NẾU CLICK OK THÌ MỚI XOÁ
-			$('#btnDel').on('click', function(){
-				del(product_id)
-			})
 		})
-		
-		
-		
-		function del(product_id){
-			console.log("chuẩn bị delete " + product_id)
-			$.ajax({
-		        url: "${pageContext.request.contextPath}/del-product/"+ product_id,
-		        type: "POST",
-		        success: function(data) {
-		          /* $('#myModaldel #product_id').val(id); */
-		          if(data) console.log('real true')
-		          
-		        }
-	      	});
-		}
 	</script>
 	<!-- EDIT DINH CAO -->
 	<script>
@@ -886,116 +877,72 @@ if ((user.getRole_id() == 5) || (user.getRole_id() == 1) || (user.getRole_id() =
 				console.log(img_name);
 				
 			})
-			
-			
 		}
-		function edit(row_id){
-			//10, 15, 20, 25, 30,...số lượng hàng trong bảng
-			let soluong_hang = document.getElementsByName('dataTable_length')[0].value;
+		
+		$('#dataTable').on('click', '.tipS.edit', function(){	
+			console.log('click datatable')
+			let product_id = $(this).parent().find("input[id='product_id']").val();
+			let product_name = $(this).parent().find("input[id='product_name']").val();	
+			let product_price = $(this).parent().find("input[id='product_price']")[0].value;
+			let product_discount = $(this).parent().find("input[id='product_discount']")[0].value;
+			let product_danhmuc = $(this).parent().find("input[id='product_danhmuc']")[0].value;
 			
-	
-			row_id = (row_id % soluong_hang > 0)?(row_id % soluong_hang):soluong_hang;
-			
-			let data = $('#dataTable')[0].rows[row_id];
-			
-			/* truyền vào modal */
-			
-			let product_id = data.querySelectorAll('#product_id')[0].value;
-			let product_name = data.querySelectorAll('#product_name')[0].value;
-			let product_price = data.querySelectorAll('#product_price')[0].value;
-			let product_discount = data.querySelectorAll('#product_discount')[0].value;
-			let product_danhmuc = data.querySelectorAll('#product_danhmuc')[0].value;
-			
-			let product_image = data.querySelectorAll('#product_image')[0].value;
+			let product_image = $(this).parent().find("input[id='product_image']")[0].value;
 			
 			
-			let product_view = data.querySelectorAll('#product_view')[0].value;
-			let product_purchased = data.querySelectorAll('#product_purchased')[0].value;
-			let product_trangthai= data.querySelectorAll('#product_trangthai')[0].value;
-			let MaNCC = data.querySelectorAll('#MaNCC')[0].value;
-			let product_thuonghieu = data.querySelectorAll('#product_thuonghieu')[0].value;
+			let product_view = $(this).parent().find("input[id='product_view']")[0].value;
+			let product_purchased = $(this).parent().find("input[id='product_purchased']")[0].value;
+			let product_trangthai= $(this).parent().find("input[id='product_trangthai']")[0].value;
+			let MaNCC = $(this).parent().find("input[id='MaNCC']")[0].value;
+			let product_thuonghieu = $(this).parent().find("input[id='product_thuonghieu']")[0].value;
 			
-			let product_sanxuat = data.querySelectorAll('#product_sanxuat')[0].value;
-			let product_thanhphan = data.querySelectorAll('#product_thanhphan')[0].value;
-			let product_luongga = data.querySelectorAll('#product_luongga')[0].value;
-			let product_luongduong = data.querySelectorAll('#product_luongduong')[0].value;
-			let product_thetich = data.querySelectorAll('#product_thetich')[0].value;
+			let product_sanxuat = $(this).parent().find("input[id='product_sanxuat']")[0].value;
+			let product_thanhphan = $(this).parent().find("input[id='product_thanhphan']")[0].value;
+			let product_luongga = $(this).parent().find("input[id='product_luongga']")[0].value;
+			let product_luongduong = $(this).parent().find("input[id='product_luongduong']")[0].value;
+			let product_thetich = $(this).parent().find("input[id='product_thetich']")[0].value;
 			
-			let product_baoquan = data.querySelectorAll('#product_baoquan')[0].value;
-			let product_sudung = data.querySelectorAll('#product_sudung')[0].value;
-			let product_soluongtonkho = data.querySelectorAll('#product_soluongtonkho')[0].value;
-			let product_nsx = data.querySelectorAll('#product_nsx')[0].value;
-			let product_hsd = data.querySelectorAll('#product_hsd')[0].value;
-			let product_content = data.querySelectorAll('#product_content')[0].value;
+			let product_baoquan = $(this).parent().find("input[id='product_baoquan']")[0].value;
+			let product_sudung = $(this).parent().find("input[id='product_sudung']")[0].value;
+			let product_soluongtonkho = $(this).parent().find("input[id='product_soluongtonkho']")[0].value;
+			let product_nsx = $(this).parent().find("input[id='product_nsx']")[0].value;
+			let product_hsd = $(this).parent().find("input[id='product_hsd']")[0].value;
+			let product_content = $(this).parent().find("input[id='product_content']")[0].value;
 			/* .
 			. Tự xử tiếp
 			. */
 			
 			
 			//MODAL
-			let product_id_modal = $('#product_id_modal');
-			let product_name_modal = $('#product_name_modal');
-			let product_price_modal = $('#product_price_modal');
-			let product_discount_modal = $('#product_discount_modal');
-			let product_danhmuc_modal = $('#product_danhmuc_modal');
+			$('#product_id_modal').val(product_id);
+			$('#product_name_modal').val(product_name);
+			$('#product_price_modal').val(product_price);
+			$('#product_discount_modal').val(product_discount);
+			$('#product_danhmuc_modal').val(product_danhmuc);
 			
-			let product_image_modal = $('#product_image_modal');
-			let product_image_name_modal = $('#product_image_name_modal');
+			$('#product_image_modal').val(product_image);
+			$('#product_image_name_modal').val(product_image);
 			
-			let product_view_modal = $('#product_view_modal');
-			let product_purchased_modal = $('#product_purchased_modal');
-			let product_trangthai_modal = $('#product_trangthai_modal');
-			let MaNCC_modal = $('#MaNCC_modal');
-			let product_thuonghieu_modal = $('#product_thuonghieu_modal');
+			$('#product_view_modal').val(product_view);
+			$('#product_purchased_modal').val(product_purchased);
+			$('#product_trangthai_modal').val(product_trangthai);
+			$('#MaNCC_modal').val(MaNCC);
+			$('#product_thuonghieu_modal').val(product_thuonghieu);
 			
-			let product_sanxuat_modal = $('#product_sanxuat_modal');
-			let product_thanhphan_modal = $('#product_thanhphan_modal');
-			let product_luongga_modal = $('#product_luongga_modal');
-			let product_luongduong_modal = $('#product_luongduong_modal');
-			let product_thetich_modal = $('#product_thetich_modal');
+			$('#product_sanxuat_modal').val(product_sanxuat);
+			$('#product_thanhphan_modal').val(product_thanhphan);
+			$('#product_luongga_modal').val(product_luongga);
+			$('#product_luongduong_modal').val(product_luongduong);
+			$('#product_thetich_modal').val(product_thetich);
 			
-			let product_baoquan_modal = $('#product_baoquan_modal');
-			let product_sudung_modal = $('#product_sudung_modal');
-			let product_soluongtonkho_modal = $('#product_soluongtonkho_modal');
-			let product_nsx_modal = $('#product_nsx_modal');
-			let product_hsd_modal = $('#product_hsd_modal');
-			let product_content_modal = $('#product_content_modal');
-			/* .
-			. Tự xử tiếp
-			. */
+			$('#product_baoquan_modal').val(product_baoquan);
+			$('#product_sudung_modal').val(product_sudung);
+			$('#product_soluongtonkho_modal').val(product_soluongtonkho);
+			$('#product_nsx_modal').val(product_nsx);
+			$('#product_hsd_modal').val(product_hsd);
+			$('#product_content_modal').val(product_content);				
 			
-			product_id_modal.val(product_id);
-			product_name_modal.val(product_name);
-			product_price_modal.val(product_price);
-			product_discount_modal.val(product_discount);
-			product_danhmuc_modal.val(product_danhmuc);
-			
-			product_image_modal.val(product_image);
-			product_image_name_modal.val(product_image);
-			product_view_modal.val(product_view);
-			product_purchased_modal.val(product_purchased);
-			product_trangthai_modal.val(product_trangthai);
-			MaNCC_modal.val(MaNCC);
-			product_thuonghieu_modal.val(product_thuonghieu);
-			
-			product_sanxuat_modal.val(product_sanxuat);
-			product_thanhphan_modal.val(product_thanhphan);
-			product_luongga_modal.val(product_luongga);
-			product_luongduong_modal.val(product_luongduong);
-			product_thetich_modal.val(product_thetich);
-			
-			product_baoquan_modal.val(product_baoquan);
-			product_sudung_modal.val(product_sudung);
-			product_soluongtonkho_modal.val(product_soluongtonkho);
-			product_nsx_modal.val(product_nsx);
-			product_hsd_modal.val(product_hsd);
-			product_content_modal.val(product_content);
-			
-			/* .
-			. Tự xử tiếp
-			. */
-		
-		}
+		})		
 	</script>
 	<!-- END EDIT DINH CAO -->
 </body>

@@ -32,8 +32,12 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"><link rel="icon" href="https://identity.teko.vn/favicon.png">
 
 <%@include file="/WEB-INF/views/layouts/customer/decorators/headlogin.jsp" %>
+		<style type="text/css">
+     	<%@ include file="/WEB-INF/views/layouts/customer/css/toast.css" %>
+     	</style>
 </head>
 <body>
+<div id="toast"></div>
 	<div id="root">
       <div class="app">
         <div class="background">
@@ -141,6 +145,13 @@
       }
     });
   </script>
+	  <%@include file="/WEB-INF/views/layouts/customer/footer/toast.jsp" %>
+	  <c:if test="${ not empty xacthucFail }">
+		<script type="text/javascript">
+		xacthucFail();	    
+		 </script>
+		 <%session.removeAttribute("xacthucFail");    %> 
+		</c:if>
   
 </body>
 </html>

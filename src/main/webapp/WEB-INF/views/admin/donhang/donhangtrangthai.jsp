@@ -95,13 +95,16 @@
                             <th>NULL </th> 
                             </c:if>   
                                                              
-                            <th>
+                            <th style="DISPLAY: flex;">
                             <form action="${pageContext.request.contextPath}/ct-don-hang/${item.donhang_id}" method="post"  enctype="multidata/form-data">
                              <button  title="DETAIL">
                             	<i class='fas fa-money-check-alt' style='font-size:32px;color:red'></i>
                             </button>
                              <input hidden="true" name="donhang_id" value="${item.donhang_id}">
                              </form>
+                             <a title="" class="tipS"  href=""  data-toggle="modal" data-target="#myModalIN">
+	                        <i class="fas fa-print" style='font-size:32px;'></i>
+	                        </a>  
                             </th>
                              <th>
                              <c:if test="${item.donhang_trangthai==1 }" >
@@ -117,7 +120,7 @@
 							 <c:if test="${item.donhang_trangthai==1 }" >
 								 <input hidden="true" name="donhang_trangthai" value="${item.donhang_trangthai +1}">
 								 <input hidden="true" name="nhanvien_id" value="<%=user.getUsers_id()%>">						  
-								 <button type="submit" style="background: #fff;" class="updatee"><i class='far fa-check-circle updatee' style='font-size:20px;color:green'></i>
+								 <button  type="submit" style="background: #fff;" class="updatee"><i class='far fa-check-circle updatee' style='font-size:20px;color:green'></i>
 							 		<span>Confirm</span>
 							 	</button>
 							 </c:if>
@@ -141,7 +144,7 @@
                           </tr>                
                         </tbody>
                         </c:forEach>
-                    </table>   
+                    </table>  
     
      	
 </body>

@@ -23,7 +23,7 @@ public class phieunhapDao extends BaseDao{
 	public  phieunhapDao(){
 		
 		
-		dsSanPham.removeAll(dsSanPham);
+		
 			try {
 				ResultSet rs = new ConnectionToDB().selectData("select * from product ");
 				while(rs.next()){
@@ -48,10 +48,28 @@ public class phieunhapDao extends BaseDao{
 	}
 	
 	
+	public boolean kiemTraSanPhamConTrongDBChua(int product_id, int product_soluongtonkho){
+		
+		for (int i = 0; i < dsSanPham.size(); i++) {
+			
+			if(dsSanPham.get(i).getProduct_id()==product_id){
+				dsSanPham.get(i).setProduct_soluongtonkho(dsSanPham.get(i).getProduct_soluongtonkho()-product_soluongtonkho);
+				if(dsSanPham.get(i).getProduct_soluongtonkho()!=0)
+				{
+					System.out.println("con trong db");
+					return true;
+				}
+				
+			}
+		}
+		return false; 
+	}
+	
 	public boolean kiemTraSanPhamCoTrongPhieuNhapChua(int product_id){
 		for (int i = 0; i < phieuNhap.size(); i++) {
 			
 			if(phieuNhap.get(i).getProduct_id()==product_id){
+				
 				System.out.println("phieuNhap.get(i).getProduct_id() " + phieuNhap.get(i).getProduct_id());
 				System.out.println("product_id " + product_id);
 				System.out.println("xong kiem tra");
@@ -104,6 +122,8 @@ public class phieunhapDao extends BaseDao{
 			for (int i = 0; i <dsSanPham.size(); i++) {
 				
 				if(dsSanPham.get(i).getProduct_id()==product_id ){
+					System.out.println("dsSanPham.get(i).getProduct_name() = " + dsSanPham.get(i).getProduct_name());
+					System.out.println("price = " + dsSanPham.get(i).getProduct_price());
 					dsSanPham.get(i).setProduct_soluongtonkho(product_soluongtonkho);
 					System.out.println("1");
 					phieuNhap.add(dsSanPham.get(i));

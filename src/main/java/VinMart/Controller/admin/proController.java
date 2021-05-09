@@ -96,12 +96,14 @@ public class proController extends BaseController {
 
 	// Vào THUC HIEN XOA San Pham
 	@RequestMapping(value = "/del-product/{product_id}", method = RequestMethod.POST)
-	public String xoaProduct(@PathVariable int product_id, ModelMap model) {
+	public String xoaProduct(@PathVariable int product_id, ModelMap model,HttpSession session) {
 		
 		System.out.println("test: "+product_id);
-			model.addAttribute("delete", _pro.delete(product_id));
-		
-		return "testTBdelete";
+		phieunhapDao phieunhap = new phieunhapDao();
+		phieunhap.xoaSanPhamRakhoiPhieuNhap(product_id);
+		_pro.delete(product_id);
+		session.setAttribute("deleteSP", "true");	
+		return "redirect:/List-Product";
 	}
 	
 	

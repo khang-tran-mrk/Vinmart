@@ -19,6 +19,7 @@
 		
  }
  else {
+	 session.setAttribute("role","true");  
 	 response.sendRedirect("admin-page");
  }
  %>
@@ -33,7 +34,19 @@
 		<%@include file="/WEB-INF/views/layouts/customer/decorators/headinfo.jsp" %>
 		<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 		
-
+	<style>
+	  #bill th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+  }
+  #bill td, #bill th {
+ 
+  padding: 8px;
+}
+	</style>
 </head>
 <body class="app" >
 		<!-- Header -->
@@ -41,7 +54,7 @@
 		<!-- END Header -->
 
 		<!-- ### $App Screen Content ### -->
-        <main class='main-content bgc-grey-100'  style="background-color: #000000!important" >
+        <main class='main-content bgc-grey-100'  style="background-color: #131c29!important">
           <div id='mainContent'  >
             <div class="container-fluid">
               <h4 class="c-grey-900 mT-10 mB-30" style="color: white !important;">Data Tables</h4>
@@ -164,13 +177,16 @@
                             <th>NULL </th> 
                             </c:if>   
                                                              
-                            <th>
+                            <th style="DISPLAY: flex;">
                             <form action="${pageContext.request.contextPath}/ct-don-hang/${item.donhang_id}" method="post"  enctype="multidata/form-data">
                              <button  title="DETAIL">
                             	<i class='fas fa-money-check-alt' style='font-size:32px;color:red'></i>
                             </button>
                              <input hidden="true" name="donhang_id" value="${item.donhang_id}">
                              </form>
+                             <a title="" class="tipS"  href=""  data-toggle="modal" data-target="#myModalIN">
+	                        <i class="fas fa-print" style='font-size:32px;'></i>
+	                        </a>  
                             </th>
                              <th>
                              <c:if test="${item.donhang_trangthai==1 }" >
@@ -355,8 +371,90 @@
 			});
 		});
 	</script> 
-   
-     	
+   	<!-- Hoa don -->
+     	<div class="modal fade" id="myModalIN">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="width: 154%;margin-left: -72px;">
+      
+        <!-- Modal Header -->
+        <div class="modal-header" style="border-bottom: none;">
+        <div>
+        <a style="background: #ed1c24;">
+        <img src="https://vinmart.com/images/logo_2.png" alt=""  style=" width: 140px;"/>
+        
+        </a>
+        <div style="font-size: 13px;"><i>Ngày bán: 07/07/2022</i></div>
+        </div>
+        <div style=" margin-left: 30px;">
+          <h4 class="modal-title"><b>Cửa hàng VinMart</b></h4>
+          <div style="font-size: 12px;">Đ/c: 120 Lê Văn Việt, Phường Hiệp Phú, Q9, Tp.HCM</div>
+           <div style="font-size: 12px;">Hotline: 0123456789</div>
+          </div>
+          
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div style=" margin-left: 148px;"><b>HÓA ĐƠN BÁN HÀNG</b></div>
+          <div style=" margin-left: 182px;"><b>#HD001</b></div>
+          
+          <div><b>Khách hàng: Phan Hoài Phương</b></div>
+          <table id="bill" style="display: flex;justify-content: center;">
+			  <tr>
+			    <th>Mặt hàng</th>
+			    <th>Đơn giá</th>
+			    <th>SL</th>
+			    <th>Thành tiền</th>
+			  </tr>
+			  <tr>
+			    <td>1</td>
+			    <td style="float: right;">2</td>
+			    <td style="text-align: center;" >3</td>
+			    <td style="float: right;">4</td>
+			  </tr>
+			</table>
+			
+			<div style="border: 1px dashed;outline: 0;"></div>
+			
+			<div style="margin-left: 210px; padding-top: 20px;"> 
+				<div><b>Cộng tiền hàng:</b> <b style="float: right;"> 68,000</b></div>
+				<div style="justify-content: space-between;display: flex;">
+					<div style="width: 102px;">
+					<b style="float: right;">Tiền Ship:</b>
+					</div>  
+					<b style="float: right;"> 25,000</b>
+				</div>
+				<div style="justify-content: space-between;display: flex;">
+					<div style="width: 102px;">
+					<b style="float: right;">Tong cong:</b>
+					</div>  
+					<b style="float: right;"> 125,000</b>
+				</div>
+				
+				<div><i>Một trăm hai lăm nghìn đồng chẵn</i></div>
+			</div>
+			 <div style="text-align: center; padding-top: 20px; padding-bottom: 20px;font-size: 15px;">
+			 <b>Xin cảm ơn quý khách, hẹn gặp lại!</b>
+			 </div>
+        </div>
+        
+        <!-- Modal footer -->
+       
+        <div class="modal-footer">
+        	
+         <form  class="tm-edit-product-form" action="${pageContext.request.contextPath}/del-category" method="post">
+          <button style="width: 100%;background-color: red;" type="submit" class="btn btn-primary btn-block text-uppercase deleteCate">OK ?</button>
+          <input type="hidden" name="category_id"  id="category_id"  />
+          </form>
+          
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+    <!-- End Hoa don -->
 </body>
 </html>
 <%}%>

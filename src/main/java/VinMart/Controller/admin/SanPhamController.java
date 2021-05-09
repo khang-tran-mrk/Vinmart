@@ -3,7 +3,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
-import org.springframework.web.servlet.ModelAndView;
 
 import VinMart.dao.ProductDao;
 import VinMart.dao.phieunhapDao;
@@ -48,16 +45,14 @@ public class SanPhamController extends HttpServlet {
 			int product_id = Integer.parseInt(request.getParameter("product_id"));
 			
 			String product_name = request.getParameter("product_name");
-//			int product_soluongtonkho = Integer.parseInt(request.getParameter("product_soluongtonkho"));
-//			int product_price = Integer.parseInt(request.getParameter("product_price"));
+			int product_soluongtonkho = Integer.parseInt(request.getParameter("product_soluongtonkho"));
+			int product_price = Integer.parseInt(request.getParameter("product_price"));
 			
-			int product_soluongtonkho = 1;
-			int product_price = 1;
+		
 //			
-//			int product_discount = Integer.parseInt(request.getParameter("product_discount"));
+			int product_discount = Integer.parseInt(request.getParameter("product_discount"));
 			int product_danhmuc = Integer.parseInt(request.getParameter("product_danhmuc"));
 			
-			int product_discount = 1;
 			
 			
 			//upload anh
@@ -111,11 +106,12 @@ public class SanPhamController extends HttpServlet {
 			pro.setNhanvien_id(nhanvien_id);
 			pro.setMaNCC(MaNCC);
 			new ProductDao().save(pro);
-			
+			System.out.println("product_id =  " + product_id);
+			System.out.println("product_name =  " + product_name);
 			System.out.println("xong them san pham ! ");
 			phieunhapDao phieunhap = new phieunhapDao();
 			int product_idByPhieuNhap = Integer.parseInt(request.getParameter("product_idByPhieuNhap"));
-			
+			System.out.println("product_idByPhieuNhap =  " + product_idByPhieuNhap);
 			phieunhap.themVaoPhieuNhap(product_idByPhieuNhap, product_soluongtonkho);		
 			ArrayList<Products> dsPhieuNhap = new ArrayList<Products>();
 			dsPhieuNhap = phieunhapDao.getPhieuNhap();

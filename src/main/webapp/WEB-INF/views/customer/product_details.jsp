@@ -22,7 +22,7 @@
      	</style>
      	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
      	     	<script type="text/javascript" src="https://code.jquery.com/jquery-latest.pack.js"></script>
-     	
+     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
      	<style>
      	.cate .product .xemchitiet{
      	 color: aliceblue !important;
@@ -42,6 +42,65 @@
     cursor: pointer;
     border-radius: 4px;
     border: 1px solid #ed1c24;
+     	</style>
+     	
+     	<style>
+     	.fa {
+  font-size: 24px !important;
+}
+
+.checkedd {
+  color: orange !important;
+}
+     	/* Three column layout */
+.side {
+  float: left;
+  width: 15%;
+  margin-top: 10px;
+}
+
+.middle {
+  float: left;
+  width: 70%;
+  margin-top: 10px;
+}
+
+/* Place text to the right */
+.right {
+  text-align: right;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The bar container */
+.bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
+}
+
+/* Individual bars */
+.bar-5 {width: 60%; height: 18px; background-color: #04AA6D;}
+.bar-4 {width: 30%; height: 18px; background-color: #2196F3;}
+.bar-3 {width: 10%; height: 18px; background-color: #00bcd4;}
+.bar-2 {width: 4%; height: 18px; background-color: #ff9800;}
+.bar-1 {width: 15%; height: 18px; background-color: #f44336;}
+
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+@media (max-width: 400px) {
+  .side, .middle {
+    width: 100%;
+  }
+  /* Hide the right column on small screens */
+  .right {
+    display: none;
+  }
      	</style>
      		
 </head>
@@ -253,47 +312,88 @@
 					            <div class="title">
 					           	 <h4>Đánh giá sản phẩm</h4>
 					            </div>
-					            <div class="ratingbox">
-						            <input type="number" value="6" class="hide" disabled="" id="totalRating">
+					            <form action="category-add" class="tm-edit-product-form" method="post">
+					            <div class="ratingbox" id="rating">
+						            <input type="number" value="6" class="hide"  id="hdrating" name="hdrating">
 						            <div class="lrb">
 							            <div class="average-rating orange">
-								            <div><b>4.3</b></div>
+								            <div><b>4.3</b></div> <!-- trung binh tong so danh gia -->
 								            <div><i class="bhx-p-star-large grayscale4"></i></div>
-								            <div><span>6 đánh giá</span></div>
+								            <div><span>6 đánh giá</span></div> <!-- tong so luot danh gia -->
 							            </div>
 						            </div>
-						            <div class="rrb">
-							            <ul class="totalrating">
-							            	<li>
-								            	<span>5★</span>
-								            	<div class="ratingbar">
-								            		<div class="ratingbar-in" style="width:33.33334%"></div>
-								            	</div>
-								            	<label>2 <span>đánh giá</span></label>
-							            	</li>
-							            	<li>
-								            	<span>3★</span>
-								            	<div class="ratingbar">
-								            		<div class="ratingbar-in" style="width:0"></div>
-								            	</div>
-								            	<label>0 <span>đánh giá</span></label>
-								            </li>
-								          </ul>
-							         </div>
+						            <div class="rrb" style="display: inline-block;vertical-align: middle;">
+									  <div class="side">
+									    <div>5 star</div>
+									  </div>
+									  <div class="middle">
+									    <div class="bar-container">
+									      <div class="bar-5"></div>
+									    </div>
+									  </div>
+									  <div class="side right">
+									    <div>150</div>
+									  </div>
+									  <div class="side">
+									    <div>4 star</div>
+									  </div>
+									  <div class="middle">
+									    <div class="bar-container">
+									      <div class="bar-4"></div>
+									    </div>
+									  </div>
+									  <div class="side right">
+									    <div>63</div>
+									  </div>
+									  <div class="side">
+									    <div>3 star</div>
+									  </div>
+									  <div class="middle">
+									    <div class="bar-container">
+									      <div class="bar-3"></div>
+									    </div>
+									  </div>
+									  <div class="side right">
+									    <div>15</div>
+									  </div>
+									  <div class="side">
+									    <div>2 star</div>
+									  </div>
+									  <div class="middle">
+									    <div class="bar-container">
+									      <div class="bar-2"></div>
+									    </div>
+									  </div>
+									  <div class="side right">
+									    <div>6</div>
+									  </div>
+									  <div class="side">
+									    <div>1 star</div>
+									  </div>
+									  <div class="middle">
+									    <div class="bar-container">
+									      <div class="bar-1"></div>
+									    </div>
+									  </div>
+									  <div class="side right">
+									    <div>20</div>
+									  </div>
+									</div>
 							        <div class="sendrating">
 								        <div class="chooserate rating-chosebhx" style="display:block">
 									        <span class="s">Gửi đánh giá của bạn</span> 
 									        <span class="star">
-										        <a href="javascript:void(0)" data-index="1"><i class="bhx-starblack medium"></i></a> 
-										        <a href="javascript:void(0)" data-index="2"><i class="bhx-starblack medium"></i></a> 
-										        <a href="javascript:void(0)" data-index="3"><i class="bhx-starblack medium"></i></a> 
-										        <a href="javascript:void(0)" data-index="4"><i class="bhx-starblack medium"></i></a> 
-										        <a href="javascript:void(0)" data-index="5"><i class="bhx-starblack medium"></i></a> 
+										       <span class="fa fa-star checkedd"></span>
+												<span class="fa fa-star checkedd"></span>
+												<span class="fa fa-star checkedd"></span>
+												<span class="fa fa-star"></span>
+												<span class="fa fa-star"></span>
 									        </span> 
 									        <span class="rstar"></span>
 								        </div>
 							        </div>
 						        </div>
+						        </form>
 					        </div>
 				            <div class="clr"></div>
 				   		</div>
@@ -535,6 +635,23 @@
      
     </div>
     </div>
+    <script type="text/javascript">
+    $(function (){
+    	
+    	$("#rating").rateYo({
+    		rating: 0,
+    		numStars: 5,
+    		maxValue:  5,
+    		halfStar : true,
+    		onChange: function ( rating,rateYoInstance){
+    				$('#hdrating').val(rating);
+    		}
+    		
+    	});
+    	
+    });
+    
+    </script>
   	<%@ include file="/WEB-INF/views/layouts/customer/footer/toast.jsp" %>
 	<%@ include file="/WEB-INF/views/layouts/customer/decorators/footer.jsp" %>
    <!-- END FOOTER -->

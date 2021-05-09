@@ -35,7 +35,7 @@
                 const delay =(duration / 1000).toFixed(2);
 
                 toast.classList.add('toast',`toast--\${type}`);
-                toast.style.animation= `slideInleft ease .3s, fadeOut linear 1s \${delay}s forwards`;
+                toast.style.animation= `slideInleft ease 3s, fadeOut linear 10s \${delay}s forwards`;
                 toast.innerHTML= `
                 <div class="toast__icon">
                 <i class="\${icon}"></i>
@@ -182,6 +182,83 @@
         });
         }
         <!--  end Gui emaill Fail -->
+        
+        <!--  doi mat khau  Gui emaill thanh cong -->
+        function xacthuc(){
+            toast({
+            	 title:"Success !", 
+            message: 'Đổi mật khẩu thành công.', 
+            type: 'success',
+            duration: 3000
+        });
+        }
+        <!--  end doi mat khau  Gui emaill thanh cong -->
+        
+        <!--  doi mat khau  Gui emaill Fail -->
+        function xacthucFail(){
+            toast({
+            	 title:"Error !", 
+            message: 'Nhập lại mật khẩu không chính xác !', 
+            type: 'error',
+            duration: 3000
+        });
+        }
+        <!--  end doi mat khau  Gui emaill Fail -->
+        
+        <!--  Khong co quyen truy cap ROLE -->
+        function role(){
+            toast({
+            title:"Error !", 
+            message: 'Bạn không có quyền truy cập vào trang này !', 
+            type: 'error',
+            duration: 90000
+        });
+        }
+        <!--  end Khong co quyen truy cap ROLE  -->
+        
+        <!--  ADD NV SUCCESS-->
+        function addNV(){
+            toast({
+            title:"Success !", 
+            message: 'Thêm thành viên thành công !', 
+            type: 'success',
+            duration: 90000
+        });
+        }
+        <!--  end ADD NV SUCCESS  -->
+        
+        <!--  ADD NV FAIL-->
+        function addNVFail(){
+            toast({
+            title:"Error !", 
+            message: 'Thêm thành viên thất bại, vui lòng kiểm tra lại thông tin!', 
+            type: 'error',
+            duration: 90000
+        });
+        }
+        <!--  end ADD NV FAIL  -->
+        
+        <!--  Xoa sp success-->
+        function xoaSPthanhcong(){
+            toast({
+            title:"Success !",  
+            message: 'Sản phẩm được xóa thành công!', 
+            type: 'success',
+            duration: 90000
+        });
+        }
+        <!--  Xoa sp success  -->
+        
+        <!--  Xoa sp FAIL-->
+        function xoaSPthatbai(){
+            toast({
+            title:"Error !",  
+            message: 'Xóa không thành công. vui lòng thử lại !', 
+            type: 'error',
+            duration: 90000
+        });
+        }
+        <!--  Xoa sp FAIL  -->
         
         
 

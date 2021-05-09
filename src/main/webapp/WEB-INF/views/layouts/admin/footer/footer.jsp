@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
      <!-- ### $App Screen Footer ### -->
-        <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600" style="background-color: #000000 !important;">
+        <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600" style="background-color: #131c29 !important;">
           <span>Copyright © 2019 Designed by <a href="https://colorlib.com" target='_blank' title="Colorlib">Colorlib</a>. All rights reserved.</span>
         </footer>
         </div>

@@ -1,6 +1,7 @@
 package VinMart.Controller.admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,12 +48,19 @@ public class phieunhapController extends BaseController {
 			
 		phieunhapDao phieunhap = new phieunhapDao();
 		phieunhap.xoaSanPhamRakhoiPhieuNhap(product_id);
-		
 		Products pro = new Products();
 		pro.setProduct_id(product_id);
 		pro.setProduct_soluongtonkho(product_soluongtonkho);
+		if(phieunhap.kiemTraSanPhamConTrongDBChua(product_id,product_soluongtonkho) ==true)
+		{
+			_phieunhap.updateProbyID(pro);
+		}
+		else {
+			_pro.delete(product_id);
+		}
 		
-		_phieunhap.updateProbyID(pro);
+		
+		
 
 		return "redirect:/List-Product";
 		}

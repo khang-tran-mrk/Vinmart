@@ -1,5 +1,7 @@
 package VinMart.Controller.admin;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,7 @@ public class adminController extends BaseController {
 
 		_mvShare.setViewName("admin/admin/Listadmin");
 		_mvShare.addObject("view_account", _accountService.GetAllAccount());
+		
 		_mvShare.addObject("view_customers", _accountService.GetAllCustomers());
 		_mvShare.addObject("view_employees", _accountService.GetAllEmployees());
 		return _mvShare;
@@ -39,7 +42,7 @@ public class adminController extends BaseController {
 			@RequestParam("users_password") String password, @RequestParam("role_id") int role_id,
 			@RequestParam("name") String name, @RequestParam("sdt") String sdt,
 			@RequestParam("gioitinh") boolean gioitinh, @ModelAttribute("User") Users user,
-			@ModelAttribute("Employee") Employees employee, ModelMap model) {
+			@ModelAttribute("Employee") Employees employee, ModelMap model,HttpSession session) {
 
 		user.setUsers_email(email);
 		user.setUsers_password(password);
@@ -51,10 +54,15 @@ public class adminController extends BaseController {
 		boolean check = _accountService.AddEmployee(user, employee);
 		if (check == false) {
 			System.out.println("khong thanh cong");
-			model.addAttribute("message_editemployee", "Chỉnh sửa không thành công");
+			session.setAttribute("addNVFail", "true");
+			
 			return "riderect:List-Admin";
 		}
-		return "redirect:/List-Admin";
+		else {
+			session.setAttribute("addNV", "true");
+			return "redirect:/List-Admin";
+		}
+		
 	}
 	
 	
